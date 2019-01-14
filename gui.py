@@ -19,7 +19,10 @@ from functools import partial
 # it's useful for determining whether threshold is too high or too low
 def calculateThreshold(dir, threshold):
     image = cv2.imread(dir + "/" + sorted(os.listdir(dir))[0], -1)
-    gray = cv2.cvtColor(img_as_ubyte(image), cv2.COLOR_BGR2GRAY)
+    if len(image.shape) is 2:
+        gray = img_as_ubyte(image)
+    else:
+        gray = cv2.cvtColor(img_as_ubyte(image), cv2.COLOR_BGR2GRAY)
     blurred = cv2.GaussianBlur(gray, (5, 5), 0)
     threshold_percent = 100
     star_count = 0
@@ -50,7 +53,10 @@ def calculateThreshold(dir, threshold):
 def getTriangles(image, threshold_percent):
     start = timer()
     # convert image to binary image where only the brightest stars are visible
-    gray = cv2.cvtColor(img_as_ubyte(image), cv2.COLOR_BGR2GRAY)
+    if len(image.shape) is 2:
+        gray = img_as_ubyte(image)
+    else:
+        gray = cv2.cvtColor(img_as_ubyte(image), cv2.COLOR_BGR2GRAY)
     blurred = cv2.GaussianBlur(gray, (5, 5), 0)
     thresh = cv2.threshold(blurred, int(int(threshold_percent) / 100 * 255), 255, cv2.THRESH_BINARY)[1]
     # remove smaller stars/artifacts
