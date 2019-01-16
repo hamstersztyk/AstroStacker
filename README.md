@@ -24,6 +24,8 @@ here's what's working and what will be added:
  - `pip install opencv-python`
  - `pip install scikit-image`
  - `pip install imutils`
+ - `pip install astropy`
+ - Note: you might want to install these dependencies with `--user` option.
  - Note: don't install PyQt5 if you have Qt already installed. If you're using
  Arch Linux or its derivative, install OpenCV this way:
     - `pacman -S opencv opencv-samples hdf5`

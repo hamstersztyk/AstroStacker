@@ -14,11 +14,24 @@ import threading
 from timeit import default_timer as timer
 from time import sleep
 from functools import partial
+from astropy.io import fits
 
 # this function returns number of stars in first image of the stack
 # it's useful for determining whether threshold is too high or too low
 def calculateThreshold(dir, threshold):
-    image = cv2.imread(dir + "/" + sorted(os.listdir(dir))[0], -1)
+    file = dir + "/" + str(sorted(os.listdir(dir))[0])
+    if file.endswith("png") or file.endswith("jpg") or file.endswith("jpeg") or file.endswith("tif") or file.endswith("tiff"):
+        image = cv2.imread(file, -1)
+    elif file.endswith("fit") or file.endswith("fits"):
+        image = fits.open(file)
+        if image[0].data.shape[0] is 3:
+            R = image[0].data[0]
+            G = image[0].data[1]
+            B = image[0].data[2]
+            image = cv2.merge([B, G, R])
+        else:
+            image = image[0].data
+
     if len(image.shape) is 2:
         gray = img_as_ubyte(image)
     else:
@@ -162,7 +175,19 @@ def alignImage(files, original, threshold_percent):
             # read images
             name = file
             file = files + "/" + file
-            image = cv2.imread(file, -1)
+
+            if file.endswith("png") or file.endswith("jpg") or file.endswith("jpeg") or file.endswith("tif") or file.endswith("tiff"):
+                image = cv2.imread(file, -1)
+            elif file.endswith("fit") or file.endswith("fits"):
+                image = fits.open(file)
+                if image[0].data.shape[0] is 3:
+                    R = image[0].data[0]
+                    G = image[0].data[1]
+                    B = image[0].data[2]
+                    image = cv2.merge([B, G, R])
+                else:
+                    image = image[0].data
+
             image = img_as_uint(image)
             if not os.path.exists(original + "/aligned"):
                 os.makedirs(original + "/aligned")
@@ -222,7 +247,19 @@ def average(files, self):
     for file in dir:
         i += 1
         file = files + "/" + file
-        image = cv2.imread(file, -1)
+
+        if file.endswith("png") or file.endswith("jpg") or file.endswith("jpeg") or file.endswith("tif") or file.endswith("tiff"):
+            image = cv2.imread(file, -1)
+        elif file.endswith("fit") or file.endswith("fits"):
+            image = fits.open(file)
+            if image[0].data.shape[0] is 3:
+                R = image[0].data[0]
+                G = image[0].data[1]
+                B = image[0].data[2]
+                image = cv2.merge([B, G, R])
+            else:
+                image = image[0].data
+
         image = img_as_float(image)
         print("(" + str(i) + "/" + str(total_files) + ") Stacking " + file + "...")
         if first is None:
@@ -338,7 +375,19 @@ def process_images(self):
             for file in os.listdir(lightdir):
                 if os.path.isfile(lightdir + "/" + file):
                     print("Calibrating " + file + "...")
-                    calibrated = cv2.imread(lightdir + "/" + file, -1)
+
+                    if file.endswith("png") or file.endswith("jpg") or file.endswith("jpeg") or file.endswith("tif") or file.endswith("tiff"):
+                        calibrated = cv2.imread(lightdir + "/" + file, -1)
+                    elif file.endswith("fit") or file.endswith("fits"):
+                        calibrated = fits.open(lightdir + "/" + file)
+                        if calibrated[0].data.shape[0] is 3:
+                            R = calibrated[0].data[0]
+                            G = calibrated[0].data[1]
+                            B = calibrated[0].data[2]
+                            calibrated = cv2.merge([B, G, R])
+                        else:
+                            calibrated = calibrated[0].data
+
                     calibrated = img_as_uint(calibrated)
                     if bias_bool:
                         print("Subtracting bias...")
