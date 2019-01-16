@@ -51,6 +51,9 @@
     </property>
    </widget>
    <widget class="QListWidget" name="list_flats">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>430</x>
@@ -97,6 +100,9 @@
     </property>
    </widget>
    <widget class="QLabel" name="file_label_flats">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>430</x>
@@ -139,6 +145,9 @@
     </property>
    </widget>
    <widget class="QRadioButton" name="mode_ecc">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -152,6 +161,9 @@
     </property>
    </widget>
    <widget class="QRadioButton" name="mode_center">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -259,6 +271,9 @@
     </property>
    </widget>
    <widget class="QPushButton" name="choose_flats">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>480</x>
