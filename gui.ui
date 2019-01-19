@@ -138,7 +138,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>&amp;Triangle similarity star alignment (for DSO)</string>
+     <string>Triangle similarity star alignment (&amp;for DSO)</string>
     </property>
     <property name="checked">
      <bool>true</bool>
@@ -315,6 +315,52 @@
     </property>
    </widget>
   </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>849</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menu_About">
+    <property name="title">
+     <string>Post-proc&amp;essing</string>
+    </property>
+    <addaction name="actionLRGB_Combination"/>
+    <addaction name="actionNoise_reduction"/>
+    <addaction name="actionBackground_gradient_removal"/>
+   </widget>
+   <widget class="QMenu" name="menuAbou">
+    <property name="title">
+     <string>A&amp;bout</string>
+    </property>
+    <addaction name="actionSource_code_Readme"/>
+   </widget>
+   <addaction name="menu_About"/>
+   <addaction name="menuAbou"/>
+  </widget>
+  <action name="actionLRGB_Combination">
+   <property name="text">
+    <string>LRGB Combination</string>
+   </property>
+  </action>
+  <action name="actionNoise_reduction">
+   <property name="text">
+    <string>Noise reduction</string>
+   </property>
+  </action>
+  <action name="actionBackground_gradient_removal">
+   <property name="text">
+    <string>Background gradient removal</string>
+   </property>
+  </action>
+  <action name="actionSource_code_Readme">
+   <property name="text">
+    <string>Source code and about</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>
